@@ -1,0 +1,31 @@
+all: main.o ints.o kbc.o timer.o mouse_isr.o kbc_init.o sprite.o video-graphics.o lab5.o rtc.o music.o wait.o
+	gcc -Wall main.o ints.o kbc.o timer.o mouse_isr.o kbc_init.o sprite.o video-graphics.o lab5.o rtc.o music.o wait.o -o jogo.exe
+main.o: main.c
+	gcc -Wall -c main.c
+ints.o: ints.c
+	gcc -Wall -c ints.c
+kbc.o: kbc.c
+	gcc -Wall -c kbc.c 
+timer.o: timer.c	
+	gcc -Wall -c timer.c
+mouse_isr.o: mouse_isr.asm
+	nasm -t -f coff mouse_isr.asm
+wait.o: wait.asm
+	nasm -t -f coff wait.asm 
+video-graphics.o: video-graphics.c
+	gcc -Wall -c video-graphics.c 
+lab5.o: lab5.c
+	gcc -Wall -c lab5.c
+sprite.o: sprite.c	
+	gcc -Wall -c sprite.c 
+rtc.o: rtc.c
+	gcc -Wall -c rtc.c
+music.o: music.c
+	gcc -Wall -c music.c
+	
+clean: 
+	rename kbc_init.o kbc_init.o2
+	del *.o
+	rename kbc_init.o2 kbc_init.o
+	
+rebuild: clean all
